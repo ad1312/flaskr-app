@@ -4,11 +4,13 @@ pipeline {
         stage('build') {
             steps {
                 sh 'pip install flask'
+                
             }
         }
         stage('test') {
             steps {
-                sh 'python test.py'
+                sh 'pip install pytest coverage'
+                sh 'pytest'
             }
             post {
                 always {junit 'test-reports/*.xml'}
