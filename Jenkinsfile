@@ -10,7 +10,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'pip install pytest coverage'
-                sh 'pytest'
+                sh 'pytest --junitxml=test-reports/results.xml'
             }
             post {
                 always {junit 'test-reports/*.xml'}
