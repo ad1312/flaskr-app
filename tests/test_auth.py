@@ -17,7 +17,7 @@ def test_register(client, app):
     with app.app_context():
         assert (
             get_db().execute("select * from user where username = 'a'").fetchone()
-            is None
+            is not None
         )
 
 
