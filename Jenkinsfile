@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'pip install flask'
                 sh 'pip install -e .'
+                sh 'docker ps'
             }
         }
         stage('test') {
