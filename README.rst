@@ -1,7 +1,7 @@
 Flaskr
 ======
 
-NOTE: This is a forked version used for CI/CD Pipline Purposes Only!
+NOTE: This is a forked version used for CI/CD Pipline Purposes Only.
 The basic blog app built in the Flask `tutorial`_.
 
 .. _tutorial: https://flask.palletsprojects.com/tutorial/
