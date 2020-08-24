@@ -22,10 +22,12 @@ pipeline {
         stage('deploy') {
             agent any
             steps {
-                //sh 'docker build -t flaskr:latest .'
-                withDockerRegistry([ credentialsId: "docker-creds", url: "" ]) {
-                    def customImage = docker.build("flaskr:${env.BUILD_ID}")
-                    customImage.push()
+                script {
+                    //sh 'docker build -t flaskr:latest .'
+                    withDockerRegistry([ credentialsId: "docker-creds", url: "" ]) {
+                        def customImage = docker.build("flaskr:${env.BUILD_ID}")
+                        customImage.push()
+                    }
                 }
             }
         }
