@@ -23,9 +23,8 @@ pipeline {
             agent any
             steps {
                 //sh 'docker build -t flaskr:latest .'
-                def customImage = docker.build("flaskr:${env.BUILD_ID}")
-                
                 withDockerRegistry([ credentialsId: "docker-creds", url: "" ]) {
+                    def customImage = docker.build("flaskr:${env.BUILD_ID}")
                     customImage.push()
                 }
             }
