@@ -1,5 +1,10 @@
 pipeline {
     agent none
+    environment {
+        registry = "penaltydbl/flaskr"
+        registryCredential = 'docker-creds'
+        dockerImage = ''
+    }
     stages {
         stage('build') {
             agent any
@@ -19,17 +24,22 @@ pipeline {
                 always {junit 'test-reports/*.xml'}
             }
         }
-        stage('deploy') {
-            agent any
-            steps {
+        stage('Building image') {
+            steps{
                 script {
-                    //sh 'docker build -t flaskr:latest .'
-                    withDockerRegistry([ credentialsId: "docker-creds", url: "" ]) {
-                        def customImage = docker.build("flaskr:${env.BUILD_ID}")
-                        customImage.push()
-                    }
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
+      
+        stage('Deploy Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }         
     }
 }
