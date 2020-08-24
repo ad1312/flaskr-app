@@ -19,10 +19,15 @@ pipeline {
                 always {junit 'test-reports/*.xml'}
             }
         }
-        stage('build docker image') {
+        stage('deploy') {
             agent any
             steps {
-                sh 'docker build -t flaskr:latest .'
+                //sh 'docker build -t flaskr:latest .'
+                def customImage = docker.build("flaskr:${env.BUILD_ID}")
+                
+                withDockerRegistry([ credentialsId: "docker-creds", url: "" ]) {
+                    customImage.push()
+                }
             }
         }
     }
