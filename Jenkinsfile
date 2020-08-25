@@ -45,6 +45,7 @@ pipeline {
         stage('Deploy Image') {
             agent { docker { image 'python:3.7.2' } }
             steps{
+                sh 'sh whoami'
                 sh 'pip install ansible'
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
