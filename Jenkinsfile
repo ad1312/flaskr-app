@@ -47,7 +47,7 @@ pipeline {
                 script {
                     docker.withRegistry( '', registryCredential ) {
                         def image_id = registry + ":$BUILD_NUMBER"
-                        sh "ansible-playbook deploy.yml --extra-vars \"image_id=${image_id}\""
+                        ansiblePlaybook(credentialsId: 'ansible_creds', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml')
                     }
                 }
             }
