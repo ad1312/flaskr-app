@@ -1,0 +1,2 @@
+[flaskr]
+prod ansible_host=3.236.194.48
