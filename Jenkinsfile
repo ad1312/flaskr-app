@@ -48,7 +48,7 @@ pipeline {
                 sh 'pip install ansible'
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
-                        ansiblePlaybook(credentialsId: 'ansible_creds', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml')
+                        ansiblePlaybook(credentialsId: 'ansible_creds', inventory: 'inv', playbook: 'deploy.yml')
                 }
             }
         }
