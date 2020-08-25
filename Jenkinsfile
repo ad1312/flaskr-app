@@ -43,6 +43,7 @@ pipeline {
             }
         }
         stage('Deploy Image') {
+            agent any
             steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
