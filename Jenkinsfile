@@ -10,9 +10,11 @@ pipeline {
             agent any
             steps {
                 sh 'docker ps'
-                def tfHome = tool name: 'Ansible'
-                env.PATH = "${tfHome}:${env.PATH}"
-                sh 'ansible --version'
+                script{
+                    def tfHome = tool name: 'Ansible'
+                    env.PATH = "${tfHome}:${env.PATH}"
+                    sh 'ansible --version'
+                }
             }
         }
         stage('test') {
