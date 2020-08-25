@@ -47,7 +47,7 @@ pipeline {
             steps{
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
-                        sh "ansible-playbook deploy.yml -i inv -u jenkins --become-user jenkins --private-key /var/jenkins_home/.ssh/id_rsa --extra-vars \"image_id=${image_id}\""
+                        sh "ansible-playbook deploy.yml -v -i inv -u jenkins --private-key /var/jenkins_home/.ssh/id_rsa --extra-vars \"image_id=${image_id}\""
                         //ansiblePlaybook(credentialsId: 'jenkins-host-ssh-creds', inventory: 'inv', playbook: 'deploy.yml')
                 }
             }
