@@ -46,10 +46,8 @@ pipeline {
             agent any
             steps{
                 script {
-                    docker.withRegistry( '', registryCredential ) {
                         def image_id = registry + ":$BUILD_NUMBER"
                         ansiblePlaybook(credentialsId: 'ansible_creds', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml')
-                    }
                 }
             }
         }
