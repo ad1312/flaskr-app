@@ -10,17 +10,13 @@ pipeline {
             agent any
             steps {
                 sh 'docker ps'
-                script{
-                    def tfHome = tool name: 'Ansible'
-                    env.PATH = "${tfHome}:${env.PATH}"
-                    sh 'ansible --version'
-                }
             }
         }
         stage('test') {
             agent { docker { image 'python:3.7.2' } }
             steps {
                 sh 'pip install flask'
+                sh 'pip install ansible'
                 sh 'pip install -e .'
                 sh 'pip install pytest coverage'
                 sh 'pytest --junitxml=test-reports/results.xml'
