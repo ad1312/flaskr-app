@@ -6,11 +6,17 @@
       - name: ping hosts
         ping:
       - name: pull docker image
+        vars:
+                ansible_python_interpreter: /usr/bin/python3
         docker_image:
                 name: "{{image_id}}"
                 source: pull
       - name: deploy container
+        vars:
+                ansible_python_interpreter: /usr/bin/python3
         docker_container:
                 name: prod_container
                 image: "{{image_id}}"
-                state: present
+                state: started
+                recreate: true
+                published_ports: "8080:5000"
