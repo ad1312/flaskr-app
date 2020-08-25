@@ -1,0 +1,16 @@
+---
+  - name: deploy to production
+    hosts: flaskr
+    become: true
+    tasks:
+      - name: ping hosts
+        ping:
+      - name: pull docker image
+        docker_image:
+                name: "{{image_id}}"
+                source: pull
+      - name: deploy container
+        docker_container:
+                name: prod_container
+                image: "{{image_id}}"
+                state: present
