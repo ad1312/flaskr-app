@@ -10,6 +10,7 @@ pipeline {
             agent any
             steps {
                 sh 'docker ps'
+                sh 'ansib
             }
         }
         stage('test') {
@@ -43,9 +44,8 @@ pipeline {
             }
         }
         stage('Deploy Image') {
-            agent { docker { image 'python:3.7.2' } }
+            agent any
             steps{
-                sh 'pip install ansible'
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
                         sh 'ansible-playbook deploy.yml -i inv'
