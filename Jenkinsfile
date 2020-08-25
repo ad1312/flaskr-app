@@ -43,7 +43,7 @@ pipeline {
             }
         }
         stage('Deploy Image') {
-            agent { docker { image 'python:3.7.2' } }
+            agent any
             steps{
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
