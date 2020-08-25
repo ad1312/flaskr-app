@@ -10,7 +10,6 @@ pipeline {
             agent any
             steps {
                 sh 'docker ps'
-                sh 'ansib
             }
         }
         stage('test') {
