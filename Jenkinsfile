@@ -48,7 +48,8 @@ pipeline {
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
                         sh "su jenkins"
-                        sh "ansible-playbook deploy.yml -i inv"
+                        sh "whoami"
+                        sh "ansible-playbook deploy.yml -i inv -u jenkins --become-user jenkins"
                         //ansiblePlaybook(credentialsId: 'jenkins-host-ssh-creds', inventory: 'inv', playbook: 'deploy.yml')
                 }
             }
