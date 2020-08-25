@@ -16,7 +16,6 @@ pipeline {
             agent { docker { image 'python:3.7.2' } }
             steps {
                 sh 'pip install flask'
-                sh 'pip install ansible'
                 sh 'pip install -e .'
                 sh 'pip install pytest coverage'
                 sh 'pytest --junitxml=test-reports/results.xml'
@@ -44,8 +43,9 @@ pipeline {
             }
         }
         stage('Deploy Image') {
-            agent any
+            agent { docker { image 'python:3.7.2' } }
             steps{
+                sh 'pip install ansible'
                 script {
                         def image_id = registry + ":$BUILD_NUMBER"
                         ansiblePlaybook(credentialsId: 'ansible_creds', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml')
