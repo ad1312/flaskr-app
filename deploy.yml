@@ -19,4 +19,5 @@
                 image: "{{image_id}}"
                 state: started
                 recreate: true
+                restart_policy: always
                 published_ports: "8080:5000"
